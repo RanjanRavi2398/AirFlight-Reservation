@@ -1,0 +1,288 @@
+#MysqlConnection(flightcheck)
+
+<?php
+
+    session_start();
+    error_reporting(0);
+
+$con=mysqli_connect("localhost","root","","airline_reservation");
+$q=mysqli_query($con,"select pnr from flight_details where departure_date='".$_SESSION['user']."'");
+$n=  mysqli_fetch_assoc($q);
+$stname= $n['pnr'];
+$id=$_SESSION['user'];
+
+$result = mysqli_query($con,"SELECT * FROM flight_details WHERE departure_date='".$_SESSION['user']."'");
+                    
+                    while($row = mysqli_fetch_array($result))
+                      {
+?>
+#flightlist
+<?php
+session_start();
+
+$con=mysqli_connect("localhost","root","","airline_reservation");
+if(!isset($con))
+{
+    die("Database Not Found");
+}
+
+
+if(isset($_REQUEST["u_sub"]))
+{
+    
+ $id=$_POST['pnr'];
+
+ if($id!='')
+ {
+   $query=mysqli_query($con ,"select * from flight_details where departure_date='".$id."'");
+   $res=mysqli_fetch_row($query);
+   $query0=mysqli_query($con ,"select * from flight_details where departure_date='".$id."'");
+   $res0=mysqli_fetch_row($query0);
+   $query1=mysqli_query($con ,"select * from flight_details where departure_date='".$id."'");
+   $res1=mysqli_fetch_row($query1);
+
+   if($res)
+   {
+    $_SESSION['user']=$id;
+    header('location:flightcheck.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("No Flight")';
+    echo '</script>';
+   }
+if($res0)
+   {
+    $_SESSION['user']=$id;
+    header('location:flightcheck.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("No Flight")';
+    echo '</script>';
+   }
+
+
+   
+   if($res1)
+   {
+    $_SESSION['user']=$id;
+    header('location:flightcheck.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("No Flight")';
+    echo '</script>';
+   }
+  }
+ else
+ {
+     echo '<script>';
+    echo 'alert("No Flight")';
+    echo '</script>';
+ 
+ }
+}
+?>
+#pnr
+<?php
+session_start();
+
+$con=mysqli_connect("localhost","root","","airline_reservation");
+if(!isset($con))
+{
+    die("Database Not Found");
+}
+
+
+if(isset($_REQUEST["u_sub"]))
+{
+    
+ $id=$_POST['pnr'];
+
+ if($id!='')
+ {
+   $query=mysqli_query($con ,"select * from passengers where pnr='".$id."'");
+   $res=mysqli_fetch_row($query);
+   $query0=mysqli_query($con ,"select * from ticket_details where pnr='".$id."'");
+   $res0=mysqli_fetch_row($query0);
+   $query1=mysqli_query($con ,"select * from payment_details where pnr='".$id."'");
+   $res1=mysqli_fetch_row($query1);
+
+   if($res)
+   {
+    $_SESSION['user']=$id;
+    header('location:pnrcheck.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("Invalid username or password")';
+    echo '</script>';
+   }
+if($res0)
+   {
+    $_SESSION['user']=$id;
+    header('location:pnrcheck.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("Invalid username or password")';
+    echo '</script>';
+   }
+
+
+   
+   if($res1)
+   {
+    $_SESSION['user']=$id;
+    header('location:pnrcheck.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("Invalid username or password")';
+    echo '</script>';
+   }
+  }
+ else
+ {
+     echo '<script>';
+    echo 'alert("Enter both username and password")';
+    echo '</script>';
+ 
+ }
+}
+?>
+#pnrall
+<?php
+session_start();
+
+$con=mysqli_connect("localhost","root","","airline_reservation");
+if(!isset($con))
+{
+    die("Database Not Found");
+}
+
+
+if(isset($_REQUEST["u_sub"]))
+{
+    
+ $id=$_POST['pnr'];
+
+ if($id!='')
+ {
+   $query=mysqli_query($con ,"select * from passengers where pnr='".$id."'");
+   $res=mysqli_fetch_row($query);
+   $query0=mysqli_query($con ,"select * from ticket_details where pnr='".$id."'");
+   $res0=mysqli_fetch_row($query0);
+   $query1=mysqli_query($con ,"select * from payment_details where pnr='".$id."'");
+   $res1=mysqli_fetch_row($query1);
+
+   if($res)
+   {
+    $_SESSION['user']=$id;
+    header('location:pnrcheckall.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("Wrong PNR Number")';
+    echo '</script>';
+   }
+if($res0)
+   {
+    $_SESSION['user']=$id;
+    header('location:pnrcheckall.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("Wrong PNR Number")';
+    echo '</script>';
+   }
+
+
+   
+   if($res1)
+   {
+    $_SESSION['user']=$id;
+    header('location:pnrcheckall.php');
+   }
+   else
+   {
+    
+    echo '<script>';
+    echo 'alert("Wrong PNR Number")';
+    echo '</script>';
+   }
+  }
+ else
+ {
+     echo '<script>';
+    echo 'alert("Wrong PNR Number")';
+    echo '</script>';
+ 
+ }
+}
+?>
+#pnrcheck
+<?php
+
+    session_start();
+    error_reporting(0);
+
+$con=mysqli_connect("localhost","root","","airline_reservation");
+$q=mysqli_query($con,"select pnr,flight_no,journey_date, class, booking_status, no_of_passengers, lounge_access, priority_checkin, insurance, payment_id, customer_id from ticket_details where pnr='".$_SESSION['user']."'");
+$n=  mysqli_fetch_assoc($q);
+$stname= $n['pnr'];
+$flight_no= $n['flight_no'];
+$journey_date= $n['journey_date'];
+$class= $n['class'];
+$booking_status= $n['booking_status'];
+$no_of_passengers= $n['no_of_passengers'];
+$lounge_access= $n['lounge_access'];
+$priority_checkin= $n['priority_checkin'];
+$insurance= $n['insurance'];
+$payment_id= $n['payment_id'];
+$customer_id= $n['customer_id'];
+
+
+
+
+$id=$_SESSION['user'];
+
+$result = mysqli_query($con,"SELECT * FROM passengers WHERE pnr='".$_SESSION['user']."'");
+                    
+                    while($row = mysqli_fetch_array($result))
+                      {
+?>
+#pnrcheckall
+<?php
+
+    session_start();
+    error_reporting(0);
+
+$con=mysqli_connect("localhost","root","","airline_reservation");
+$q=mysqli_query($con,"select pnr from ticket_details where pnr='".$_SESSION['user']."'");
+$n=  mysqli_fetch_assoc($q);
+$stname= $n['pnr'];
+$id=$_SESSION['user'];
+
+$result = mysqli_query($con,"SELECT * FROM passengers WHERE pnr='".$_SESSION['user']."'");
+                    
+                    while($row = mysqli_fetch_array($result))
+                      {
+?>
